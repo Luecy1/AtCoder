@@ -23,17 +23,18 @@ fun problem137_c(a: Int, inputStringList: ArrayList<String>): Long {
     }.sortedBy { it }
 
     var result: Long = 0L
-    for (i in 0 until (a - 1)) {
-        val my = sortedList[i]
 
-        for (j in (i + 1) until a) {
-            val that = sortedList[j]
+    val tmpList = mutableMapOf<String,Int>()
+    for (str in sortedList) {
 
-            if (my == that) {
-                result++
-            } else {
-                break
-            }
+        var tmpCount = tmpList[str]
+
+        if (tmpCount == null) {
+            tmpList[str] = 0
+        } else {
+            tmpCount++
+            result += tmpCount
+            tmpList[str] = tmpCount
         }
     }
 
