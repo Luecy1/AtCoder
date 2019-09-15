@@ -1,3 +1,5 @@
+import java.util.*
+
 fun main(args: Array<String>) {
 
     val (n, m) = readLine()!!.split(" ").map(String::toInt)
@@ -9,17 +11,24 @@ fun main(args: Array<String>) {
 
 fun abc141d(n: Int, m: Int, aList: List<Int>): Any? {
 
-    var aMutaList = aList.sortedDescending().toMutableList()
+    class Rev : Comparator<Int> {
+        override fun compare(o1: Int?, o2: Int?): Int {
+            return o2!! - o1!!
+        }
+    }
+//    val comp = Comparator<Int>() { i1: Int, i2: Int ->
+//        return@Comparator i2 - i1
+//    }
+
+    val tmpQueue = java.util.PriorityQueue<Int>(aList.size, Rev())
+
+    for (a in aList) {
+        tmpQueue.offer(a)
+    }
 
     repeat(m) {
-        aMutaList[0] /= 2
-
-        // ２番めが大きければ入れ替え
-        if (aMutaList.size > 2 && aMutaList[1] > aMutaList[0]) {
-            val tmp = aMutaList[0]
-            aMutaList[0] = aMutaList[1]
-            aMutaList[1] = tmp
-        }
+        val tmp = tmpQueue.poll()!! / 2
+        tmpQueue += tmp
     }
 
 //    repeat(m) {
@@ -41,7 +50,7 @@ fun abc141d(n: Int, m: Int, aList: List<Int>): Any? {
 
 
     var sum = 0L
-    for (e in aMutaList) {
+    for (e in tmpQueue) {
         sum += e
     }
     return sum
