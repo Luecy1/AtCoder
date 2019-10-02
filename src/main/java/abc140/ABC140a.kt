@@ -1,11 +1,11 @@
 
 fun main(args: Array<String>) {
 
-    val n = readLine()!!.toInt()
-
-    println(abc140a(n))
+    println(abc140a())
 }
 
-fun abc140a(n: Int): Any? {
+fun abc140a(): Any? {
+    val n = readLine()!!.toInt()
+
     return Math.pow(n.toDouble(), 3.0).toInt()
 }
